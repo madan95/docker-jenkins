@@ -2,7 +2,7 @@
 
 mkdir -p data/jenkins
 
-docker-compose up -d
+docker-compose up -d --build
 
 docker exec -it -u root jenkins_container bash -c 'apt-get update && \
 apt-get -y install apt-transport-https \

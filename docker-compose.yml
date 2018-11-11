@@ -1,20 +1,20 @@
 version: '3'
 services:
-  jenkins:
-    image: jenkins/jenkins
-    container_name: jenkins_container
-    user: jenkins
-    volumes:
-      - ./data/jenkins:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
+  jenkinsc:
+    image: jenkins
+    container_name: "jenkins_container"
     environment:
-      JENKINS_HOST_HOME: "./data/jenkins"
+      JAVA_OPTS: "-Djava.awt.headless=true"
+    volumes:
+      - /var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
     labels:
-      - "traefik.docker.networks=traffic"
+      - "traefik.enable=true"
+      - "traefik.docker.network=traffic"
       - "traefik.frontend.rule=Host:${DOMAIN}.${BASE_URL}"
       - "traefik.port=8080"
     networks:
-      traffic:
+      - traffic
 networks:
   traffic:
     external: true
