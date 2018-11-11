@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+mkdir -p data/jenkins
+
 docker-compose up -d
 
 docker exec -it -u root jenkins_container bash -c 'apt-get update && \
