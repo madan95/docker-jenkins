@@ -1,7 +1,7 @@
 version: '3'
 services:
   jenkinsc:
-    image: jenkins
+    image: jenkins/jenkins:lts
     container_name: "jenkins_container"
     environment:
       JAVA_OPTS: "-Djava.awt.headless=true"
