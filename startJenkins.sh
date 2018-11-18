@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+if [ ! -d "jenkins_home" ]; then
+  # Control will enter here if jenkins_home does not exists.
+  # jenkins_home holds presitent data form jenkins container for future use
+  mkdir jenkins_home
+fi
+
 docker-compose up -d --build
 
 docker exec -it -u root jenkins_container bash -c 'apt-get update && \
@@ -29,6 +35,3 @@ docker ps
 
 #Get intial password needed for jenkins
 docker exec jenkins_container cat /var/jenkins_home/secrets/initialAdminPassword
-
-
-
