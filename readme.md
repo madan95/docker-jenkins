@@ -1,5 +1,6 @@
 Pipeline Script Example :
 
+'''''
 node{
     stage('Scm Commit'){
         git credentialsId: 'git-cred', url: 'https://github.com/madan95/drupal-base'
@@ -11,7 +12,7 @@ node{
         }
     }
 }
-
+'''''
 
 ./start.sh 
 
