@@ -1,13 +1,14 @@
 version: '3'
 services:
-  jenkinsc:
+  jenkins:
     image: jenkins/jenkins:lts
     container_name: "jenkins_container"
     environment:
       JAVA_OPTS: "-Djava.awt.headless=true"
     volumes:
-      - /var/jenkins_home
+      - ./jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traffic"

@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-mkdir -p data/jenkins
-
 docker-compose up -d --build
 
 docker exec -it -u root jenkins_container bash -c 'apt-get update && \
@@ -16,8 +14,21 @@ add-apt-repository \
    $(lsb_release -cs) \
    stable" && \
 apt-get update && \
-apt-get -y install docker-ce
+apt-get -y install docker-ce'
 
-docker ps'
+#Create Keys insdie container if it doesn't exist
+docker exec -it jenkins_container bash -c 'ls -la && \
+yes "" | ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa'
 
+
+#Save the container key to current server authorized key for future pipline work
+docker exec -it jenkins_container bash  -c 'cat ~/.ssh/id_rsa.pub' >> ~/.ssh/authorized_keys
+
+#Check if container was started
+docker ps
+
+#Get intial password needed for jenkins
 docker exec jenkins_container cat /var/jenkins_home/secrets/initialAdminPassword
+
+
+
