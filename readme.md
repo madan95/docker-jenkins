@@ -30,9 +30,14 @@ Fires up startJenkins script that creates Jenkins container, add ssh keys inside
 
 At the end of build process, It will printout one time initialAdminPassword at the end which you use can copy and use when it is asked when you use Jenkins for the first time.
 
+
 ## Running the tests
 
 Now you should be able to access Jenkins using https://jenkins.localhost.
+
+Source-code Management -> Git -> Repo URL (https)
+Build Triggers - > Github hook trigger for GITScm polling
+In git repo -> Add webhooks (https://jenkins-hostname-url/github-webhook/) 
 
 Once you have all initial set up ready, we can create a new pipe line and have a script. Example :
 
@@ -43,12 +48,16 @@ node{
       git credentialsId: 'git-cred', url: 'https://github.com/madan95/drupal-base'
     }
     stage('Run Container'){
-      sh "ssh -T -o StrictHostKeyChecking=no madan@vps444173.ovh.net ./start.sh"
+      sh "ssh -T -o StrictHostKeyChecking=no username@hostname ./start.sh"
     }
 }
 
 ```
+or Just use Execute shell 
 
+```
+ssh -T -o StrictHostKeyChecking=no username@hostname ./custom-build-script-to-run.sh
+```
 
 ## Built with
 
