@@ -45,7 +45,7 @@ Once you have all initial set up ready, we can create a new pipe line and have a
 
 node{
     stage('Scm Commit'){
-      git credentialsId: 'git-cred', url: 'https://github.com/madan95/drupal-base'
+      git credentialsId: 'git-cred', url: 'https://github.com/user/repo'
     }
     stage('Run Container'){
       sh "ssh -T -o StrictHostKeyChecking=no username@hostname ./start.sh"
